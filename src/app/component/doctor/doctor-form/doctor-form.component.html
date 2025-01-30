@@ -1,0 +1,47 @@
+<div class="container mt-4">
+    <form>
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="doctorName" class="form-label">Doctor Name:</label>
+            <input id="doctorName" [(ngModel)]="doctorName" name="doctorName" class="form-control" type="text">
+          </div>
+  
+          <div class="mb-3">
+            <label for="contactNumber" class="form-label">Contact Number:</label>
+            <input id="contactNumber" [(ngModel)]="contactNumber" name="contactNumber" class="form-control" type="text">
+          </div>
+  
+          <div class="mb-3">
+            <label for="experienceYears" class="form-label">Experience (Years):</label>
+            <input id="experienceYears" [(ngModel)]="experienceYears" name="experienceYears" class="form-control" type="number">
+          </div>
+        </div>
+  
+        <!-- Right Column -->
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="specialization" class="form-label">Specialization:</label>
+            <select id="specialization" [(ngModel)]="specialization" name="specialization" class="form-select">
+              <option *ngFor="let option of specializationOptions" [value]="option">{{ option }}</option>
+            </select>
+          </div>
+  
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input id="email" [(ngModel)]="email" name="email" class="form-control" type="email">
+          </div>
+  
+          <div class="mb-3">
+            <label for="dateOfJoining" class="form-label">Date of Joining:</label>
+            <input id="dateOfJoining" [(ngModel)]="dateOfJoining" name="dateOfJoining" class="form-control" type="date">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  

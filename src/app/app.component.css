@@ -1,0 +1,13 @@
+/* Custom active button style */
+.btn-group .active {
+    background-color: #10a8df;  /* Custom active background color */
+    border-color: #53c9f4;      /* Custom active border color */
+  }
+  
+  .btn-group .btn {
+    background-color: #10a8df;  /* Custom active background color */
+    border-color: #53c9f4;
+    margin-right: 25px;  /* Space between buttons */
+    border-radius: 15px;
+  }
+  
