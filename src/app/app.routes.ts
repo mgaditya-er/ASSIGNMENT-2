@@ -8,7 +8,7 @@ export const routes: Routes = [
 
 
     { path: 'patient', component: PatientComponent ,canDeactivate : [canDeactivateGuard]},
-  { path: 'doctor', component: DoctorFormComponent },
-  { path: 'admin', component: AdminFormComponent },
+  { path: 'doctor', component: DoctorFormComponent ,canDeactivate : [canDeactivateGuard]},
+  { path: 'admin', component: AdminFormComponent ,canDeactivate : [canDeactivateGuard]},
   { path: '', redirectTo: '/patient', pathMatch: 'full' }  // Default route
 ];

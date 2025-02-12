@@ -1,47 +1,113 @@
 <div class="container mt-4">
-    <form>
-      <div class="row">
-        <!-- Left Column -->
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="doctorName" class="form-label">Doctor Name:</label>
-            <input id="doctorName" [(ngModel)]="doctorName" name="doctorName" class="form-control" type="text">
-          </div>
-  
-          <div class="mb-3">
-            <label for="contactNumber" class="form-label">Contact Number:</label>
-            <input id="contactNumber" [(ngModel)]="contactNumber" name="contactNumber" class="form-control" type="text">
-          </div>
-  
-          <div class="mb-3">
-            <label for="experienceYears" class="form-label">Experience (Years):</label>
-            <input id="experienceYears" [(ngModel)]="experienceYears" name="experienceYears" class="form-control" type="number">
+  <form [formGroup]="doctorForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <!-- Left Column -->
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="doctorName" class="form-label">Doctor Name:</label>
+          <input 
+            id="doctorName" 
+            formControlName="doctorName" 
+            class="form-control" 
+            type="text">
+          <div *ngIf="doctorForm.controls['doctorName'].touched && doctorForm.controls['doctorName'].invalid" class="text-danger">
+            <small *ngIf="doctorForm.controls['doctorName'].hasError('required')">Doctor Name is required.</small>
           </div>
         </div>
-  
-        <!-- Right Column -->
-        <div class="col-md-6">
-          <div class="mb-3">
-            <label for="specialization" class="form-label">Specialization:</label>
-            <select id="specialization" [(ngModel)]="specialization" name="specialization" class="form-select">
-              <option *ngFor="let option of specializationOptions" [value]="option">{{ option }}</option>
-            </select>
+
+        <div class="mb-3">
+          <label for="contactNumber" class="form-label">Contact Number:</label>
+          <input 
+            id="contactNumber" 
+            formControlName="contactNumber" 
+            class="form-control" 
+            type="text">
+          <div *ngIf="doctorForm.controls['contactNumber'].touched && doctorForm.controls['contactNumber'].invalid" class="text-danger">
+            <small *ngIf="doctorForm.controls['contactNumber'].hasError('required')">Contact Number is required.</small>
+            <small *ngIf="doctorForm.controls['contactNumber'].hasError('pattern')">Contact Number must be a valid 10-digit number.</small>
           </div>
-  
-          <div class="mb-3">
-            <label for="email" class="form-label">Email:</label>
-            <input id="email" [(ngModel)]="email" name="email" class="form-control" type="email">
-          </div>
-  
-          <div class="mb-3">
-            <label for="dateOfJoining" class="form-label">Date of Joining:</label>
-            <input id="dateOfJoining" [(ngModel)]="dateOfJoining" name="dateOfJoining" class="form-control" type="date">
+        </div>
+
+        <div class="mb-3">
+          <label for="experienceYears" class="form-label">Experience (Years):</label>
+          <input 
+            id="experienceYears" 
+            formControlName="experienceYears" 
+            class="form-control" 
+            type="number" 
+            min="0">
+          <div *ngIf="doctorForm.controls['experienceYears'].touched && doctorForm.controls['experienceYears'].invalid" class="text-danger">
+            <small *ngIf="doctorForm.controls['experienceYears'].hasError('required')">Experience is required.</small>
+            <small *ngIf="doctorForm.controls['experienceYears'].hasError('min')">Experience cannot be negative.</small>
           </div>
         </div>
       </div>
-  
-      <!-- Submit Button -->
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+
+      <!-- Right Column -->
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="specialization" class="form-label">Specialization:</label>
+          <select 
+            id="specialization" 
+            formControlName="specialization" 
+            class="form-select">
+            <option value="">Select Specialization</option>
+            <option *ngFor="let option of specializationOptions" [value]="option">{{ option }}</option>
+          </select>
+          <div *ngIf="doctorForm.controls['specialization'].touched && doctorForm.controls['specialization'].invalid" class="text-danger">
+            <small *ngIf="doctorForm.controls['specialization'].hasError('required')">Specialization is required.</small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input 
+            id="email" 
+            formControlName="email" 
+            class="form-control" 
+            type="email">
+          <div *ngIf="doctorForm.controls['email'].touched && doctorForm.controls['email'].invalid" class="text-danger">
+            <small *ngIf="doctorForm.controls['email'].hasError('required')">Email is required.</small>
+            <small *ngIf="doctorForm.controls['email'].hasError('email')">Please enter a valid email address.</small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="dateOfJoining" class="form-label">Date of Joining:</label>
+          <input 
+            id="dateOfJoining" 
+            formControlName="dateOfJoining" 
+            class="form-control" 
+            type="date">
+          <div *ngIf="doctorForm.controls['dateOfJoining'].touched && doctorForm.controls['dateOfJoining'].invalid" class="text-danger">
+            <small *ngIf="doctorForm.controls['dateOfJoining'].hasError('required')">Date of Joining is required.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="doctorForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>
+<!-- modal -->
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel"  [attr.inert]="isModalHidden ? true : null">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        You have unsaved changes. Are you sure you want to leave without saving?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="confirmLeaveButton" (click)="leavePage()">Leave</button>
+      </div>
+    </div>
   </div>
-  
+</div>
